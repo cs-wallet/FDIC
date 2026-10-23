@@ -66,7 +66,7 @@ body { background-color: #000000; display: flex; justify-content: center; align-
 .money-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px 10px; }
 .money-title { font-size: 28px; font-weight: 800; letter-spacing: 0.5px; }
 .money-actions-top { display: flex; gap: 16px; align-items: center; }
-.profile-btn { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 1px solid #333; background-color: #2c2c2e; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 14px; cursor: pointer; text-transform: uppercase; }
+.profile-btn { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 1px solid #333; background-color: #2c2c2e; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 14px; cursor: pointer; text-transform: uppercase; overflow: hidden; background-size: cover; background-position: center; }
 
 .card-banner { margin: 10px 20px; background: linear-gradient(135deg, #1f1d1a 0%, #3a2e22 50%, #12100e 100%); border-radius: 16px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
 .card-chip-text { font-size: 13px; font-weight: 700; color: #d1d1d1; display: flex; align-items: center; gap: 6px; }
@@ -242,6 +242,7 @@ body { background-color: #000000; display: flex; justify-content: center; align-
     width: 72px;
     height: 72px;
     margin: 0 auto 12px auto;
+    cursor: pointer;
 }
 .profile-hero {
     width: 72px;
@@ -255,6 +256,9 @@ body { background-color: #000000; display: flex; justify-content: center; align-
     font-size: 28px;
     font-weight: 700;
     text-transform: uppercase;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
 }
 .camera-badge {
     position: absolute;
@@ -434,6 +438,9 @@ body { background-color: #000000; display: flex; justify-content: center; align-
 <body>
     <div class="app-container">
 
+    <!-- HIDDEN FILE INPUT FOR PROFILE PHOTO -->
+    <input type="file" id="profile-pic-input" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+
     <!-- SCREEN 0: SIGN IN -->
     <div id="screen-login" class="screen full-height active">
         <div class="login-screen">
@@ -511,7 +518,7 @@ body { background-color: #000000; display: flex; justify-content: center; align-
         <div class="dashboard-card" onclick="openBitcoinPage()">
             <div>
                 <div style="font-size: 14px; color: #a0a0a0; font-weight: 600; margin-bottom: 2px;">Bitcoin</div>
-                <div style="font-size: 22px; font-weight: 800;" id="dash-btc-fiat">$410.00</div>
+                <div style="font-size: 22px; font-weight: 800;" id="dash-btc-fiat">$730.00</div>
                 <div style="font-size: 12px; color: #00d632; font-weight: 700; margin-top: 2px;">↑ 2.14% today</div>
             </div>
             <svg width="80" height="35" viewBox="0 0 80 35" fill="none">
@@ -531,9 +538,9 @@ body { background-color: #000000; display: flex; justify-content: center; align-
         </div>
 
         <div class="btc-balance-hero">
-            <div class="btc-amount" id="btc-holding-display">₿0.01438212</div>
+            <div class="btc-amount" id="btc-holding-display">₿0.02560738</div>
             <div class="btc-fiat-sub">
-                <span id="btc-holding-fiat">$410.00 USD</span>
+                <span id="btc-holding-fiat">$730.00 USD</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 16V4M7 4L3 8M7 4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
             </div>
             <div class="btc-change-row">$28,507.68 ▲ 0.19% <span style="color:#8e8e93; font-weight:500;">Today</span></div>
@@ -695,7 +702,7 @@ body { background-color: #000000; display: flex; justify-content: center; align-
             <div class="profile-sheet-body">
                 <!-- User Profile Card -->
                 <div class="profile-user-card">
-                    <div class="profile-avatar-container">
+                    <div class="profile-avatar-container" onclick="triggerProfilePicUpload()">
                         <div class="profile-hero" id="modal-profile-avatar">B</div>
                         <div class="camera-badge">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
@@ -711,7 +718,7 @@ body { background-color: #000000; display: flex; justify-content: center; align-
 
                 <!-- Add Photo / Verify Identity Card -->
                 <div class="profile-action-card">
-                    <div class="profile-action-row" onclick="alert('Add profile photo')">
+                    <div class="profile-action-row" onclick="triggerProfilePicUpload()">
                         <div class="action-icon-green-border">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d632" stroke-width="2.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
                         </div>
@@ -760,7 +767,7 @@ body { background-color: #000000; display: flex; justify-content: center; align-
                     </a>
 
                     <!-- LINKED BANKS -> link.html -->
-                    <a href="#.html" class="settings-menu-item">
+                    <a href="link.html" class="settings-menu-item">
                         <div class="settings-icon">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
                         </div>
@@ -900,8 +907,9 @@ let userState = {
     name: "",
     cashtag: "",
     cashBalance: 0,
-    btcHolding: 0.01438212, 
+    btcHolding: 0.02560738, 
     btcPrice: 28507.68,
+    profilePic: "",
     history: []
 };
 
@@ -947,8 +955,9 @@ function handleLogin() {
         name: name,
         cashtag: formattedTag,
         cashBalance: bal,
-        btcHolding: 0.01438212,
+        btcHolding: 0.02560738,
         btcPrice: 28507.68,
+        profilePic: "",
         history: []
     };
 
@@ -971,12 +980,43 @@ function logOut() {
     document.getElementById('login-balance').value = "";
 }
 
+function triggerProfilePicUpload() {
+    document.getElementById('profile-pic-input').click();
+}
+
+function handleImageUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            userState.profilePic = e.target.result;
+            localStorage.setItem('walletAppSession', JSON.stringify(userState));
+            updateAllUI();
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function updateAvatarElement(elementId, initial) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    if (userState.profilePic) {
+        el.style.backgroundImage = `url('${userState.profilePic}')`;
+        el.innerText = '';
+    } else {
+        el.style.backgroundImage = 'none';
+        el.innerText = initial;
+    }
+}
+
 function updateAllUI() {
     const initial = userState.name ? userState.name.charAt(0).toUpperCase() : 'B';
     
-    document.getElementById('user-avatar-btn').innerText = initial;
-    document.getElementById('keypad-avatar-btn').innerText = initial;
-    document.getElementById('history-avatar-btn').innerText = initial;
+    updateAvatarElement('user-avatar-btn', initial);
+    updateAvatarElement('keypad-avatar-btn', initial);
+    updateAvatarElement('history-avatar-btn', initial);
+    updateAvatarElement('modal-profile-avatar', initial);
+
     document.getElementById('dash-cashtag').innerText = userState.cashtag;
     
     document.getElementById('home-cash-display').innerText = formatFiat(userState.cashBalance);
@@ -1004,7 +1044,7 @@ function updateAllUI() {
 // --- PROFILE MODAL POPULATOR ---
 function openProfileModal() {
     const initial = userState.name ? userState.name.charAt(0).toUpperCase() : 'B';
-    document.getElementById('modal-profile-avatar').innerText = initial;
+    updateAvatarElement('modal-profile-avatar', initial);
     document.getElementById('modal-profile-name').innerText = userState.name || 'User Name';
     document.getElementById('modal-profile-cashtag').innerText = userState.cashtag || '$cashtag';
     document.getElementById('modal-top-cashtag').innerText = userState.cashtag || '$CashComms';
@@ -1037,6 +1077,17 @@ function checkPendingTimer() {
         localStorage.setItem('walletAppSession', JSON.stringify(userState));
     }
     return updated;
+}
+
+// --- UNIVERSAL SHORT-FORM ADDRESS HELPER ---
+function shortenAddress(str) {
+    if (!str) return '';
+    const trimmed = str.trim();
+    // Truncate crypto addresses or long strings (>16 chars)
+    if (trimmed.length > 16 && !trimmed.includes(' ')) {
+        return trimmed.substring(0, 6) + '...' + trimmed.substring(trimmed.length - 4);
+    }
+    return trimmed;
 }
 
 // --- HISTORY RENDERING LOGIC ---
@@ -1075,18 +1126,22 @@ function buildTxHTML(tx) {
 
     const isReview = tx.status === 'Review';
     const clickAttr = isReview ? `onclick="window.location.href='action.html'"` : ``;
+    
+    // Automatically convert titles & subtitles to short form if they contain addresses
+    const formattedTitle = shortenAddress(tx.title);
+    const formattedSubtitle = shortenAddress(tx.subtitle);
 
     return `
     <div class="transaction-item" ${clickAttr}>
       <div class="tx-icon ${tx.asset === 'Cash' ? 'cash' : ''}">${tx.asset === 'Bitcoin' ? 'BTC' : '$'}</div>
       <div class="tx-details">
         <div class="tx-row-top">
-          <span class="tx-title">${tx.title}</span>
+          <span class="tx-title">${formattedTitle}</span>
           ${tx.amountDisp ? `<span class="tx-amount">${tx.amountDisp}</span>` : ''}
         </div>
         <div class="tx-subtitle">
           ${arrowSvg}
-          ${tx.subtitle} ${tx.status === 'CANCELED' ? '(Canceled)' : ''}
+          ${formattedSubtitle} ${tx.status === 'CANCELED' ? '(Canceled)' : ''}
           ${isReview ? `<span class="badge-review-tag">Action Required</span>` : ''}
         </div>
       </div>
@@ -1245,7 +1300,7 @@ function updateTargetDisplay() {
         displayText.style.color = "#000";
     } else if (btcRegex.test(val)) {
         displayLabel.innerText = "External Bitcoin Address";
-        displayText.innerText = val;
+        displayText.innerText = shortenAddress(val); 
         displayText.style.color = "#00d632"; 
     } else if (val.startsWith('$')) {
         displayLabel.innerText = "Cash App Contact";
@@ -1274,7 +1329,8 @@ function executeSend() {
 
     const txIntent = {
         mode: sendMode,
-        target: target,
+        target: shortenAddress(target),
+        rawTarget: target,
         amount: payAmount
     };
     localStorage.setItem('currentTxIntent', JSON.stringify(txIntent));
