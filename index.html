@@ -494,7 +494,7 @@ body { background-color: #000000; display: flex; justify-content: center; align-
 
         <div class="btn-row-dual">
             <button class="btn-dark-pill" onclick="alert('Add Money feature')">Add money</button>
-            <button class="btn-dark-pill" onclick="alert('Withdraw feature')">Withdraw</button>
+            <button class="btn-dark-pill" onclick="window.location.href='withdrawal.html'">Withdraw</button>
         </div>
 
         <div class="dashboard-card">
@@ -900,7 +900,6 @@ body { background-color: #000000; display: flex; justify-content: center; align-
       </a>
     </div>
 </div>
-
 <script>
 // --- Core App State ---
 let userState = {
@@ -932,6 +931,13 @@ window.addEventListener('DOMContentLoaded', () => {
         document.getElementById('login-name').value = "";
         document.getElementById('login-tag').value = "";
         document.getElementById('login-balance').value = "";
+    }
+
+    // Check for URL hash to open specific modals/screens on load (e.g. from withdrawal.html)
+    if (window.location.hash === '#review') {
+        openReviewActionModal();
+        switchTab('screen-history'); // Switch to history tab to show the pending item
+        window.history.replaceState(null, null, ' '); // Clean up the hash
     }
 
     setInterval(() => {
