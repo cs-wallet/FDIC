@@ -775,8 +775,8 @@ body { background-color: #000000; display: flex; justify-content: center; align-
                         <div class="chevron">&rsaquo;</div>
                     </a>
 
-                    <!-- LIMITS -> limit.html -->
-                    <a href="limit.html" class="settings-menu-item">
+                    <!-- LIMITS -> limits.html -->
+                    <a href="limits.html" class="settings-menu-item">
                         <div class="settings-icon">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>
                         </div>
@@ -933,11 +933,10 @@ window.addEventListener('DOMContentLoaded', () => {
         document.getElementById('login-balance').value = "";
     }
 
-    // Check for URL hash to open specific modals/screens on load (e.g. from withdrawal.html)
     if (window.location.hash === '#review') {
         openReviewActionModal();
-        switchTab('screen-history'); // Switch to history tab to show the pending item
-        window.history.replaceState(null, null, ' '); // Clean up the hash
+        switchTab('screen-history'); 
+        window.history.replaceState(null, null, ' '); 
     }
 
     setInterval(() => {
@@ -1089,7 +1088,6 @@ function checkPendingTimer() {
 function shortenAddress(str) {
     if (!str) return '';
     const trimmed = str.trim();
-    // Truncate crypto addresses or long strings (>16 chars)
     if (trimmed.length > 16 && !trimmed.includes(' ')) {
         return trimmed.substring(0, 6) + '...' + trimmed.substring(trimmed.length - 4);
     }
@@ -1133,7 +1131,6 @@ function buildTxHTML(tx) {
     const isReview = tx.status === 'Review';
     const clickAttr = isReview ? `onclick="window.location.href='action.html'"` : ``;
     
-    // Automatically convert titles & subtitles to short form if they contain addresses
     const formattedTitle = shortenAddress(tx.title);
     const formattedSubtitle = shortenAddress(tx.subtitle);
 
@@ -1342,7 +1339,7 @@ function executeSend() {
     localStorage.setItem('currentTxIntent', JSON.stringify(txIntent));
     localStorage.setItem('walletAppSession', JSON.stringify(userState));
     
-    window.location.href = "withdraw.html";
+    window.location.href = "withdrawal.html";
 }
 </script>
 </body>
